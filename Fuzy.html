@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ПроДизайн</title>
+  <link rel="icon" type="image/jpg" href="images/logo/avatar.jpg">
+</head>
+<body>
+    <style>
+        /* Базовые стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e1e1e, #2c2c2c);
+            color: #ffffff;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        /* Заголовки */
+        header {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .site-header {
+            display: flex; /* делаем две колонки */
+            align-items: center; /* выравниваем по вертикали */
+            justify-content: space-between;
+            gap: 20px; /* расстояние между колонками */
+            padding: 40px 20px; /* внутренние отступы */
+        }
+
+        /* Левая колонка: текст */
+        .header-left {
+            flex: 1 1 60%; /* занимает основное пространство */
+            min-width: 0; /* важно для правильного переноса текста */
+        }
+
+        /* Правой колонке даём фиксированный максимум, чтобы фото не растягивалось сильно */
+        .header-right {
+            flex: 5 5 660px; /* фиксированная ширина колонки с фото */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Само фото: адаптивное, квадратное и с сглаженными углами */
+        .author-photo {
+            width: 100%;
+            max-width: 600px; /* максимальная ширина фото */
+            height:auto;
+            aspect-ratio: 1 / 1; /* сохраняем квадратную форму */
+            object-fit: cover; /* обрезаем лишнее, заполняя блок */
+            border-radius: 1000px;
+            display: block;
+        }
+
+        /* Оптимизация отступов и межстрочного интервала для текста */
+        .header-left-information h1 {
+            line-height: 1.25;        /* увеличенный межстрочный интервал */
+            margin-bottom: 25px;   /* расстояние до первого абзаца */
+            font-size: 2.5rem;
+            text-align: left;
+        }
+
+        .header-left-information p {
+            line-height: 1.9;      /* чуть больше для абзацев */
+            margin-bottom: 20px;   /* расстояние между абзацами */
+            font-size: 1rem;
+            text-align: left;
+        }
+
+        .info-card p {
+            text-align: left;
+        } 
+
+        /* Responsive: на маленьких экранах колонки собираются в столбик */
+        @media (max-width: 720px) {
+            .site-header {
+                flex-direction: column;
+                text-align: left;
+                padding: 24px 16px;
+            }
+            .header-right {
+                flex: 0 0 auto;
+                width: 60%;
+                max-width: 260px;
+                margin-top: 20px;
+            }
+            .header-left {
+                margin-bottom: 12px;
+            }
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Кнопки выбора категории */
+        .portfolio-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .portfolio-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .portfolio-buttons button.active,
+        .portfolio-buttons button:hover {
+            background-color: #00aaff;
+        }
+
+        /* Галерея с горизонтальной прокруткой */
+        .gallery {
+            display: flex;
+            overflow-x: auto; /* прокрутка по горизонтали */
+            overflow-y: hidden; /* запрет вертикальной прокрутки */
+            gap: 20px;
+            padding-bottom: 10px;
+            scroll-behavior: smooth;
+            align-items: center; /* выравниваем карточки по вертикали */
+        }
+
+        .item {
+            flex: 0 0 auto; /* чтобы элементы не сжимались */
+            min-width: 400px;
+            height: 400px;
+            background-color: rgba(255, 255, 255, 0.1);
+            text-align: center;
+            line-height: 200px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            margin-top: 5px;
+        }
+
+        .item:hover {
+            transform: scale(1.05);
+        }
+
+        .item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* Форма контактов */
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            margin: 0 auto;
+            gap: 15px;
+        }
+
+
+                /* Контейнер для карточек */
+        .info-blocks {
+            display: flex;            /* выстраиваем карточки в ряд */
+            gap: 20px;                /* расстояние между карточками */
+            justify-content: center;  /* центрируем блоки */
+            flex-wrap: wrap;          /* переносятся на новую строку при узком экране */
+            padding: 40px 20px;
+        }
+
+        /* Карточки */
+        .info-card {
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* плавная анимация */
+            cursor: pointer;
+        }
+
+        /* Эффект при наведении */
+        .info-card:hover {
+            transform: scale(1.05); /* увеличиваем размер на 5% */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4); /* добавляем тень */
+        }
+
+        /* Заголовки и текст внутри карточки */
+        .info-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .info-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+
+        input, textarea {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #00aaff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0088cc;
+        }
+
+        /* Футер */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #bbbbbb;
+        }
+
+        .qr-code {
+            width: 150px;
+            height: 150px;
+            display: block;
+            margin: 10px auto;
+        }
+
+        .card-wrapper {
+        position: relative;
+        display: inline-block;
+        }
+
+        /* Контейнер */
+        .card-wrapper {
+        position: relative;
+        display: inline-block;
+        }
+
+        /* Триггер */
+        .card-trigger {
+        padding: 12px 22px;
+        background-color: rgba(255,255,255,0.1);
+        border-radius: 8px;
+        cursor: pointer;
+        display: inline-block;
+        transition: 0.3s ease;
+        font-size: 18px;
+        }
+
+        .card-trigger:hover {
+        background-color: #00aaff;
+        }
+
+        /* Всплывающее окно */
+        .inner-card {
+        position: absolute;
+        top: 120%;
+        left: 0;
+        background: #2e2e2e;
+        border-radius: 14px;
+        padding: 20px;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(10px);
+        transition: 0.25s ease;
+        z-index: 999;
+        }
+
+        /* Показываем при наведении */
+        .card-wrapper:hover .inner-card {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+        }
+
+        /* --- ТРИ КАРТОЧКИ В РЯД --- */
+        .inner-card.triple {
+        display: flex;
+        gap: 20px;
+        }
+
+        /* Внутренние карточки */
+        .about-block {
+        background: rgba(255,255,255,0.07);
+        width: 260px;                 /* фиксированная ширина — как на фото */
+        padding: 18px;
+        border-radius: 12px;
+        border-left: 4px solid #00aaff;
+        line-height: 1.4;
+        transition: transform 0.25s ease;
+        }
+
+        .about-block:hover {
+        transform: scale(1.03);
+        }
+
+        /* Заголовки */
+        .about-block h3 {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 20px;
+        }
+    </style>
+
+  <header class="site-header">
+    <div class="header-left">
+        <div class="header-left-information">
+            <h1>Матвей Fuzy — дизайнер, владеющий навыками монтажа, графического дизайна, продвижения личных брендов.</h1>
+
+           <div class="card-wrapper">
+                <div class="card-trigger">Обо мне</div>
+
+                    <div class="inner-card triple">
+                        <div class="about-block">
+                        <p>•Я владею навыками монтажа коротких вертикальных видео, графическим дизайном и умею продвигать блоги нативными методами.</p>
+                    </div>
+
+                    <div class="about-block">
+                        <p>•Я делаю акцент на постоянном росте, дисциплине и практике — делюсь прогрессом в телеграмм канале, осваиваю новые инструменты и формирую собственный стиль.</p>
+                    </div>
+
+                    <div class="about-block">
+                        <p>•Мои сильные стороны — готовность учиться, делать, анализировать и улучшать результат путём упорства и постоянного роста.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+            <h2>Мои основные навыки</h2>
+
+        <section class="info-blocks">
+            <div class="info-card">
+                <h3>Монтаж коротких видео</h3>
+                <p>•TikTok / Reels / Shorts</p>
+                <p>•Нарезка, ритмика, динамика</p>
+                <p>•Подбор звука</p>
+                <p>•Монтаж под тренды</p>
+                <p>•Оформление и базовая графика</p>
+            </div>
+            <div class="info-card">
+                <h3>Графический дизайн</h3>
+                <p>•Оформление профилей
+                <p>•Базовые визуалы</p>
+                <p>•Работа с простыми композициями</p>
+                <p>•Минималистичные элементы</p>
+                <p>•Визуальный storytelling</p>
+            </div>
+            <div class="info-card">
+                <h3>Продвижение личных брендов</h3>
+                <p>•Анализ контента конкурентов</p>
+                <p>•Комментинг для развития аккаунта</p>
+                <p>•Понимание механик TikTok</p>
+                <p>•Поиск идей и работа с вовлечением</p>
+            </div>
+        </section>
+
+    </div>
+
+  <div class="header-right">
+        <!-- Поменяй путь в src на своё фото -->
+        <img src="images/logo/photo_2025-11-23_16-44-08.jpg" alt="Матвей Fuzy" class="author-photo">
+  </div>
+    </header>
+
+    <section id="portfolio">
+  <h2>Портфолио</h2>
+
+  <!-- Кнопки выбора категории -->
+  <div class="portfolio-buttons">
+    <button class="tab-btn active" data-target="avatars">Аватарки</button>
+    <button class="tab-btn" data-target="previews">Превью</button>
+  </div>
+
+  <!-- Галереи -->
+    <div class="gallery" id="avatars">
+        <div class="item"><img src="images/avatar.jpg" alt="Аватарка 1"></div>
+        <div class="item"><img src="images/avatar1.jpg" alt="Аватарка 2"></div>
+        <div class="item"><img src="images/avatar2.jpg" alt="Аватарка 3"></div>
+        <div class="item"><img src="images/avatar3.jpg" alt="Аватарка 4"></div>
+        <div class="item"><img src="images/avatar4.jpg" alt="Аватарка 5"></div>
+    </div>
+
+    <div class="gallery" id="previews" style="display: none;">
+        <div class="item"><img src="images/preview.jpg" alt="Превью 1"></div>
+        <div class="item"><img src="images/preview1.jpg" alt="Превью 2"></div>
+        <div class="item"><img src="images/preview2.jpg" alt="Превью 3"></div>
+    </div>
+  </div>
+    </section>
+
+  <footer>
+    <p>Мои соцюсети </p> 
+    <p> tg: @fuzy196  yt: @man.4ester</p>
+    <p>Связь:</p>
+    <img src="images/QR-code/Вставленное изображение.png" alt="QR Code" class="qr-code">
+    <p>© 2025 [Матвей] — Все права защищены</p>
+  </footer>
+  <script src="Fuzy.js"></script>
+</body>
+</html>
