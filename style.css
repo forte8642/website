@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 /* Базовые стили */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
@@ -14,10 +16,17 @@ body {
     padding: 20px;
 }
 
+h1, h2, h3 {
+    font-family: 'Poppins', sans-serif;
+}
+body, p {
+    font-family: 'Inter', sans-serif;
+}
+
 /* Заголовки */
 header {
     text-align: center;
-    padding: 50px 20px;
+    padding: 80px 20px; 
 }
 
 .site-header {
@@ -60,9 +69,16 @@ header {
 /* Оптимизация отступов и межстрочного интервала для текста */
 .header-left-information h1 {
     line-height: 1.25;        /* увеличенный межстрочный интервал */
-    margin-bottom: 25px;   /* расстояние до первого абзаца */
+    margin-bottom: -25px;   /* расстояние до первого абзаца */
     font-size: 2.5rem;
-    text-align: left;
+    text-align: center;
+}
+
+.header-left-information h2 {
+    line-height: 1.25;        /* увеличенный межстрочный интервал */
+    margin-bottom: 80px;  /* расстояние до первого абзаца */
+    font-size: 2rem;
+    text-align: center;
 }
 
 .header-left-information p {
@@ -109,18 +125,18 @@ h2 {
 }
 
 .portfolio-buttons button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: rgba(255,255,255,0.2);
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    padding: 12px 24px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #00aaff, #0055cc);
+    color: #fff;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(0,170,255,0.3);
 }
 
 .portfolio-buttons button.active,
 .portfolio-buttons button:hover {
-    background-color: #00aaff;
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0,170,255,0.5);
 }
 
 /* Галерея с горизонтальной прокруткой */
@@ -173,7 +189,7 @@ form {
     gap: 20px;                /* расстояние между карточками */
     justify-content: center;  /* центрируем блоки */
     flex-wrap: wrap;          /* переносятся на новую строку при узком экране */
-    padding: 40px 20px;
+    padding: 60px 20px;
     margin-bottom: -60px;
 }
 
@@ -186,12 +202,13 @@ form {
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* плавная анимация */
     cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 /* Эффект при наведении */
 .info-card:hover {
-    transform: scale(1.05); /* увеличиваем размер на 5% */
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4); /* добавляем тень */
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
 }
 
 /* Заголовки и текст внутри карточки */
@@ -244,12 +261,8 @@ footer {
 .card-wrapper {
 position: relative;
 display: inline-block;
-}
-
-/* Контейнер */
-.card-wrapper {
-position: relative;
-display: inline-block;
+box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+margin-bottom: 90px;
 }
 
 /* Триггер */
@@ -270,14 +283,14 @@ background-color: #00aaff;
 /* Всплывающее окно */
 .inner-card {
 position: absolute;
-top: 120%;
-left: 0;
+top: 120%; 
+left: 50%;           /* Ставим центр родителя */
+transform: translate(-50%, 10px); /* смещаем по X на половину ширины, по Y немного вниз */
 background: #2e2e2e;
 border-radius: 14px;
 padding: 20px;
 opacity: 0;
 pointer-events: none;
-transform: translateY(10px);
 transition: 0.25s ease;
 z-index: 999;
 }
@@ -286,13 +299,14 @@ z-index: 999;
 .card-wrapper:hover .inner-card {
 opacity: 1;
 pointer-events: auto;
-transform: translateY(0);
+transform: translate(-50%, 0); /* плавно поднимаем на место */
 }
 
 /* --- ТРИ КАРТОЧКИ В РЯД --- */
 .inner-card.triple {
 display: flex;
 gap: 20px;
+justify-content: center; /* центрируем три карточки внутри */
 }
 
 /* Внутренние карточки */
