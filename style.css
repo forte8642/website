@@ -393,9 +393,26 @@ footer {
         min-width: 220px;
         height: 220px;
     }
+    .card-trigger{
+        font-size: 0.6rem;
+    }
+    .inner-card{
+        width: 300px;
+        height: 210px;
+    }
+    .inner-card p {
+        font-size: 0.3rem;
+    }
     .info-card {
-        width: 180px;
+        width: 80px;
+        height: 130px;
         padding: 15px;
+    }
+    .info-card h4 {
+        font-size: 0.4rem;
+    }
+    .info-card p {
+        font-size: 0.3rem;
     }
     .about-block {
         width: 200px;
